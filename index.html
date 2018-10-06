@@ -7,17 +7,45 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     <title>Testing Disqus CSP</title>
 
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <h1>Testing Disqus CSP</h1>
+
     <p>
-        A simple site to assist in fine tuning the CSP rules required for Disqus.
+        A simple site to assist in fine tuning the CSP rules required for
+        Disqus.
+    </p>
+
+    <h2>Outstanding Issues</h2>
+
+    <p>
+        One of the scripts for Disqus includes a call to <code>eval</code>
+        which contradicts the <code>script-src</code> CSP directive because I
+        did <strong>NOT</strong> allow <code>unsafe-eval</code>, therefore Disqus
+        may not work as intended.
     </p>
 
     <p>
+        The current CSP rules enforced are:
+        <code class="multi-line">
+    default-src 'none' ;
+    script-src 'self' disqus.com disqus-csp.disqus.com c.disquscdn.com;
+    style-src 'self' c.disquscdn.com;
+    img-src 'self' referrer.disqus.com c.disquscdn.com;
+    connect-src links.services.disqus.com; child-src disqus.com;
+    frame-src disqus.com;
+    upgrade-insecure-requests;
+    block-all-mixed-content;
+        </code>
+    </p>
+
+    <hr>
+
+    <p>
         Full source code for the website is on GitHub at:
-        <a href="https://github.com/TheYorkshireDev/disqus-csp" >https://github.com/TheYorkshireDev/disqus-csp</a>
+        <a href="https://github.com/TheYorkshireDev/disqus-csp">https://github.com/TheYorkshireDev/disqus-csp</a>
     </p>
 
     <p>
@@ -30,7 +58,8 @@
 
     <script src="/js/disqus.js"></script>
     <noscript>
-        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+            powered by Disqus.</a>
     </noscript>
 </body>
 
